@@ -1,5 +1,6 @@
 package rmbplayer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,13 +14,14 @@ import madkit.kernel.Message;
 import madkit.message.EnumMessage;
 import madkit.message.ObjectMessage;
 
-public class Room  extends madkit.kernel.Agent {
+public class GameRoom  extends madkit.kernel.Agent {
 	
 	// C / G / R 
 	public static final String COMMUNITY = "RMBGameRoom";	
 	public static final String SIMU_GROUP = "RMBGroup";
 	public static final String Player_ROLE = "player";
 	public static final String Room_ROLE = "room";
+	public static final String VIEWER_ROLE = "viewer";
 
     // Player Number
 	private static final int PLAYER_NB = 100;
@@ -36,15 +38,24 @@ public class Room  extends madkit.kernel.Agent {
 		long startTime = System.nanoTime();
 		launchPlayer(PLAYER_NB);
 		getLogger().info(() -> "launch time : " + (System.nanoTime() - startTime));
-		
-		
+		 
  
 	}
 
+	long ticker=0L;
 	  
 	@Override
 	protected void live() {
 		while (isAlive()) {
+			
+			long tickerNow = System.currentTimeMillis();
+			if (tickerNow>ticker)
+			{
+				ticker = tickerNow+1000;
+				SendViewReport();
+			}
+			
+			
 			ObjectMessage<Cheque>  ball = (ObjectMessage<Cheque>) waitNextMessage(1000);
 			if (ball!=null)
 			{
@@ -61,6 +72,15 @@ public class Room  extends madkit.kernel.Agent {
 			} 
 		}
 	}
+	
+	void SendViewReport()
+	{
+		
+		ArrayList<Player> reportlist = (ArrayList<Player>) this.playerList.clone();
+		Collections.sort(reportlist);
+		
+	}
+	
 	
 	
 	Player getPlayer(int no)
