@@ -1,4 +1,4 @@
-package com.ariso.nettystudy.timeserver;
+package com.ariso.timeserver.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;

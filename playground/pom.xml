@@ -15,10 +15,21 @@
 		<jmh.version>1.7.1</jmh.version>
 		<netty.version>4.1.6.Final</netty.version>
 		<fastjson.version>1.2.16</fastjson.version>
+		<vertx.version>3.5.1</vertx.version>
 		<javac.target>1.8</javac.target>
 		<uberjar.name>benchmarks</uberjar.name>
 	</properties>
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.vertx</groupId>
+				<artifactId>vertx-dependencies</artifactId>
+				<version>${vertx.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -51,6 +62,11 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-core</artifactId>
 		</dependency>
 
 	</dependencies>
