@@ -1,33 +1,36 @@
 package com.ariso.timeserver.vertx;
 
+import java.util.Date;
+
+import io.netty.buffer.ByteBuf;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.logging.Logger;
 import io.vertx.core.net.NetSocket;
+
 public class TimeClient extends AbstractVerticle {
+ 
 
-	  // Convenience method so you can run it in your IDE
-	  public static void main(String[] args) {
-	//   Runner.runExample(Client.class);
-	  }
+	@Override
+	public void start() throws Exception {
 
-	  @Override
-	  public void start() throws Exception {
-	    vertx.createNetClient().connect(1234, "localhost", res -> {
+		vertx.createNetClient().connect(8888, "localhost", res -> {
 
-	      if (res.succeeded()) {
-	        NetSocket socket = res.result();
-	        socket.handler(buffer -> {
-	          System.out.println("Net client receiving: " + buffer.toString("UTF-8"));
-	        });
+			if (res.succeeded()) {
+				NetSocket socket = res.result();
 
-	        // Now send some data
-	        for (int i = 0; i < 10; i++) {
-	          String str = "hello " + i + "\n";
-	          System.out.println("Net client sending: " + str);
-	          socket.write(str);
-	        }
-	      } else {
-	        System.out.println("Failed to connect " + res.cause());
-	      }
-	    });
-	  }
+				 
+				
+				socket.handler(buffer -> {
+				long currentTimeMillis = 	(buffer.getUnsignedInt(0) - 2208988800L) * 1000L;;
+				System.out.println(new Date(currentTimeMillis));
+				
+				});
+				socket.close();
+				 
+			} else {
+				System.out.println("Failed to connect " + res.cause());
+			}
+		});
 	}
+	
+}
