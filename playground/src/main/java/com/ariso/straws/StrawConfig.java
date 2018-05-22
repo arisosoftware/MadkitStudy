@@ -1,6 +1,5 @@
 package com.ariso.straws;
 
- 
 public class StrawConfig {
 	public String serverIp;
 
@@ -14,5 +13,4 @@ public class StrawConfig {
 
 	public String mode;
 
-	 
 }

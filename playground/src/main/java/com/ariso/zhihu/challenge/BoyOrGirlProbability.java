@@ -42,7 +42,7 @@ public class BoyOrGirlProbability {
 			for (int x = 0; x < sample; x++) {
 				thisYearProbaility.Test1();
 			}
- 
+
 			BoyOrGirlProbability thisYear2ndProbaility = new BoyOrGirlProbability("Year 2nd " + (theyear + 1));
 
 			History2nd.add(thisYear2ndProbaility);
@@ -61,9 +61,9 @@ public class BoyOrGirlProbability {
 			History2nd.get(theyear).PrintResult();
 			summary.SumOfBoy += History.get(theyear).SumOfBoy + History2nd.get(theyear).SumOfBoy;
 			summary.SumOfGirl += History.get(theyear).SumOfGirl + History2nd.get(theyear).SumOfGirl;
-			
+
 		}
-		
+
 		summary.PrintResult();
 	}
 

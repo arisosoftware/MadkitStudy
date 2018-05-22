@@ -14,7 +14,7 @@ import org.openjdk.jmh.annotations.OutputTimeUnit;
 
 public class AESEncrpyt {
 	@Benchmark
- 
+
 	public void EncryptTest() throws Throwable {
 
 		String toEncrypt = "The shorter you live, the longer you're dead!";

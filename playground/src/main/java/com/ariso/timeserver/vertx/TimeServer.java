@@ -11,19 +11,23 @@ public class TimeServer extends AbstractVerticle {
 	@Override
 	public void start() throws Exception {
 
-		
 		vertx.createNetServer().connectHandler(sock -> {
-		 			
-			Buffer buffer  = Buffer.factory.buffer();
-			buffer.appendInt( (int) (System.currentTimeMillis() / 1000L + 2208988800L) );
-		 sock.write(buffer);
-		 sock.close();
+
+			Buffer buffer = Buffer.factory.buffer();
+			buffer.appendInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
+			sock.write(buffer);
+			sock.close();
 		}).listen(8888);
-		 
+
 	}
 
- 
- 
+	static int sessionId = 0;
+
+	public static int GetCid() {
+		sessionId++;
+		return sessionId;
+	}
+
 	public static void main(String[] args) throws InterruptedException {
 		Vertx vertx = Vertx.vertx();
 		vertx.deployVerticle(new TimeServer());

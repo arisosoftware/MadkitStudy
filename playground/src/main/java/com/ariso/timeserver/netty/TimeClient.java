@@ -11,17 +11,16 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 public class TimeClient {
 	public static void main(String[] args) throws Exception {
-		String host ;// = args[0];
-		int port ;// = Integer.parseInt(args[1]);
+		String host;// = args[0];
+		int port;// = Integer.parseInt(args[1]);
 		if (args.length > 0) {
-			host =  args[0];
+			host = args[0];
 			port = Integer.parseInt(args[1]);
 		} else {
 			host = "127.0.0.1";
 			port = 8888;
 		}
-		
-		
+
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 
 		try {

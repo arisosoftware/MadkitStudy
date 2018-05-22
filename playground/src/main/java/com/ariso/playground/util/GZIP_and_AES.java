@@ -23,7 +23,7 @@ import org.openjdk.jmh.annotations.OutputTimeUnit;
 import com.alibaba.fastjson.JSON;
 import com.ariso.straws.StrawConfig;
 
-public class GZIP {
+public class GZIP_and_AES {
 	@Benchmark
 	public void EncryptTest() throws Throwable {
 
@@ -47,7 +47,7 @@ public class GZIP {
 		String output = JSON.toJSONString(config);
 
 	}
-	
+
 	@Benchmark
 	public void FastEncrytTest() throws Throwable {
 
@@ -85,7 +85,7 @@ public class GZIP {
 	}
 
 	public void InitCipher(String Key, String encryptAlgorithm) throws Exception {
-       
+
 		SecureRandom sr = new SecureRandom(Key.getBytes());
 		KeyGenerator kg = KeyGenerator.getInstance(encryptAlgorithm);
 		kg.init(sr);
@@ -109,7 +109,7 @@ public class GZIP {
 		Cipher cipher = GetDecrpytCipher(key, algorithm);
 		byte[] decrypted = cipher.doFinal(toDecrypt);
 
-		return  new String(decrypted);
+		return new String(decrypted);
 	}
 
 	public static byte[] encryptAndCompress(String toEncrypt, String key) throws Exception {
