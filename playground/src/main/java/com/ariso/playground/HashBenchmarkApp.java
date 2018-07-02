@@ -13,7 +13,7 @@ public class HashBenchmarkApp {
 	public static void main(String[] args) {
 		try {
 
-			Options opt = new OptionsBuilder().include(HashBenchmark.class.getSimpleName())
+			Options opt = new OptionsBuilder().include(HashBenchmarkApp.class.getSimpleName())
 
 					.warmupIterations(2).measurementIterations(5).forks(1).shouldDoGC(true).build();
 
