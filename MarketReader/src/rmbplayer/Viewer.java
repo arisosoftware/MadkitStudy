@@ -24,17 +24,14 @@ public class Viewer extends SwingViewer {
 	/**
 	 * environment's size, probed using a {@link SingleAgentProbe}.
 	 */
-	private Dimension envSize = new Dimension(600,400);
+	private Dimension envSize = new Dimension(600, 400);
 
-	
-	
-	 
 	@Override
 	protected void activate() {
 		// 1 : request my role so that the scheduler can take me into account
-		requestRole(GameRoom.COMMUNITY,GameRoom.SIMU_GROUP, GameRoom.VIEWER_ROLE);
- 
-		//  setup the frame for the display according to the environment's
+		requestRole(GameRoom.COMMUNITY, GameRoom.SIMU_GROUP, GameRoom.VIEWER_ROLE);
+
+		// setup the frame for the display according to the environment's
 		// properties
 		getDisplayPane().setPreferredSize(envSize);
 		getFrame().pack();
@@ -48,8 +45,8 @@ public class Viewer extends SwingViewer {
 	}
 
 	/**
-	 * render is the method where the custom painting has to be done. Here, we
-	 * just draw red points at the agents' location
+	 * render is the method where the custom painting has to be done. Here, we just
+	 * draw red points at the agents' location
 	 */
 	@Override
 	protected void render(Graphics g) {

@@ -46,9 +46,9 @@ public class HelloWorldAgent extends Agent {
 	}
 
 	/**
-	 * This is the second behavior which is activated, i.e. when activate ends.
-	 * It actually implements the life of the agent. It is usually a while true
-	 * loop. Here the agent lives 10 seconds and quits.
+	 * This is the second behavior which is activated, i.e. when activate ends. It
+	 * actually implements the life of the agent. It is usually a while true loop.
+	 * Here the agent lives 10 seconds and quits.
 	 */
 	@Override
 	protected void live() {
@@ -61,8 +61,7 @@ public class HelloWorldAgent extends Agent {
 
 	/**
 	 * This behavior is called when the agent has finished its live behavior.
-	 * Because there is no other agent, MaDKit quits when the agent is
-	 * terminated.
+	 * Because there is no other agent, MaDKit quits when the agent is terminated.
 	 */
 	@Override
 	protected void end() {
@@ -72,13 +71,12 @@ public class HelloWorldAgent extends Agent {
 
 	/**
 	 * Now we have to start this agent one way or another. Implementing a main
-	 * method is not required at all but it could be used to simulate a command
-	 * line call to MaDKit with the desired options inside an IDE. Such a
-	 * command line would be (assuming a good classpath): > java
-	 * madkit.kernel.MaDKit --launchAgents helloworld.ex01.HelloWorldAgent,true
+	 * method is not required at all but it could be used to simulate a command line
+	 * call to MaDKit with the desired options inside an IDE. Such a command line
+	 * would be (assuming a good classpath): > java madkit.kernel.MaDKit
+	 * --launchAgents helloworld.ex01.HelloWorldAgent,true
 	 * 
-	 * @param args
-	 *            unused here
+	 * @param args unused here
 	 */
 	public static void main(String[] args) {
 		executeThisAgent();

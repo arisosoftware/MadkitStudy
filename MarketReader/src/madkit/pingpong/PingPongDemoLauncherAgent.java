@@ -31,44 +31,44 @@ import madkit.kernel.Agent;
  */
 public class PingPongDemoLauncherAgent extends Agent {
 
-    private List<AbstractAgent> agentsList = new ArrayList<>();
+	private List<AbstractAgent> agentsList = new ArrayList<>();
 
-    @Override
-    protected void activate() {
-	int initialPause = 2000;
-	int screenWidth = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 200);
-	int screenHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
-	for (int i = 0; i < screenWidth; i = i + 400) {
-	    for (int j = 0; j < screenHeight; j = j + 300) {
-		PingPong p = new PingPong();
-		launchAgent(p, true);
-		agentsList.add(p);
-		getLogger().info("Ping Pong launched");
-		p.setFrameLocation(i, j);
-		getLogger().info("Ping Pong launched");
-		pause((initialPause > 0 ? initialPause : 20));
-		initialPause -= Math.random() * 100;
-	    }
+	@Override
+	protected void activate() {
+		int initialPause = 2000;
+		int screenWidth = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 200);
+		int screenHeight = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 200);
+		for (int i = 0; i < screenWidth; i = i + 400) {
+			for (int j = 0; j < screenHeight; j = j + 300) {
+				PingPong p = new PingPong();
+				launchAgent(p, true);
+				agentsList.add(p);
+				getLogger().info("Ping Pong launched");
+				p.setFrameLocation(i, j);
+				getLogger().info("Ping Pong launched");
+				pause((initialPause > 0 ? initialPause : 20));
+				initialPause -= Math.random() * 100;
+			}
+		}
 	}
-    }
 
-    @Override
-    protected void live() {
-	pause(6000);
-	int initialPause = 2000;
-	while (!agentsList.isEmpty()) {
-	    AbstractAgent a = agentsList.remove((int) (agentsList.size() * Math.random()));
-	    killAgent(a);
-	    pause((initialPause > 0 ? initialPause : 100));
-	    initialPause -= Math.random() * 100;
+	@Override
+	protected void live() {
+		pause(6000);
+		int initialPause = 2000;
+		while (!agentsList.isEmpty()) {
+			AbstractAgent a = agentsList.remove((int) (agentsList.size() * Math.random()));
+			killAgent(a);
+			pause((initialPause > 0 ? initialPause : 100));
+			initialPause -= Math.random() * 100;
+		}
 	}
-    }
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-	executeThisAgent(1, false);
-    }
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		executeThisAgent(1, false);
+	}
 
 }

@@ -7,9 +7,9 @@ import madkit.kernel.AbstractAgent;
 public class SituatedAgent extends AbstractAgent {
 
 	/**
-	 * The agent's environment. Here it is just used to know its boundaries. It
-	 * will be automatically set by the environment agent itself: No need to
-	 * instantiate anything here.
+	 * The agent's environment. Here it is just used to know its boundaries. It will
+	 * be automatically set by the environment agent itself: No need to instantiate
+	 * anything here.
 	 */
 	protected EnvironmentAgent environment;
 
@@ -23,8 +23,7 @@ public class SituatedAgent extends AbstractAgent {
 	 */
 	@Override
 	protected void activate() {
-		requestRole(MySimulationModel.MY_COMMUNITY,
-				MySimulationModel.SIMU_GROUP, MySimulationModel.AGENT_ROLE);
+		requestRole(MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP, MySimulationModel.AGENT_ROLE);
 		Dimension envDim = environment.getDimension();
 		location.width = (int) (Math.random() * envDim.width);
 		location.height = (int) (Math.random() * envDim.height);

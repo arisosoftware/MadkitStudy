@@ -30,8 +30,7 @@ import madkit.kernel.AbstractAgent;
  */
 public abstract class AbstractBee extends AbstractAgent {
 
-	protected static final Random generator = new Random(
-			System.currentTimeMillis());
+	protected static final Random generator = new Random(System.currentTimeMillis());
 
 	protected int dX; // current velocity in x dir
 	protected int dY; // current velocity in y dir
@@ -46,19 +45,17 @@ public abstract class AbstractBee extends AbstractAgent {
 
 	/**
 	 * 
-	 * Automatically called by the {@link BeeViewer} when the agent takes its
-	 * social position
+	 * Automatically called by the {@link BeeViewer} when the agent takes its social
+	 * position
 	 * 
 	 * @param environment
 	 */
 	public void setEnvironment(BeeEnvironment environment) {
 		beeWorld = environment;
 		final Point myLocation = myInformation.getCurrentPosition();
-		if (myLocation.x > beeWorld.getWidth()
-				|| myLocation.y > beeWorld.getHeight() || myLocation.x <= 0
+		if (myLocation.x > beeWorld.getWidth() || myLocation.y > beeWorld.getHeight() || myLocation.x <= 0
 				|| myLocation.y <= 0) {
-			myLocation.setLocation(
-					generator.nextInt(beeWorld.getWidth() - 20) + 10,
+			myLocation.setLocation(generator.nextInt(beeWorld.getWidth() - 20) + 10,
 					generator.nextInt(beeWorld.getHeight() - 20) + 10);
 			myInformation.getPreviousPosition().setLocation(myLocation);
 		}
@@ -69,8 +66,7 @@ public abstract class AbstractBee extends AbstractAgent {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + " on " + beeWorld + " "
-				+ myInformation;
+		return getClass().getSimpleName() + " on " + beeWorld + " " + myInformation;
 	}
 
 	protected void buzz() {
@@ -117,8 +113,7 @@ class BeeInformation {
 	public BeeInformation() {
 		currentPosition = new Point();
 		previousPosition = new Point();
-		beeColor = Color.getHSBColor(AbstractBee.generator.nextFloat(), 1.0f,
-				1.0f);
+		beeColor = Color.getHSBColor(AbstractBee.generator.nextFloat(), 1.0f, 1.0f);
 	}
 
 	/**
@@ -148,8 +143,7 @@ class BeeInformation {
 	}
 
 	/**
-	 * @param beeColor
-	 *            the beeColor to set
+	 * @param beeColor the beeColor to set
 	 */
 	public void setBeeColor(Color beeColor) {
 		this.beeColor = beeColor;

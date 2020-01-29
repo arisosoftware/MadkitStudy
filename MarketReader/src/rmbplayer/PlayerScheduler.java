@@ -42,11 +42,10 @@ public class PlayerScheduler extends madkit.kernel.Scheduler {
 	public void activate() {
 		super.activate();
 		requestRole(COMMUNITY, SIMU_GROUP, SCHEDULER_ROLE);
-		bees = new GenericBehaviorActivator<>(COMMUNITY, SIMU_GROUP, BEE_ROLE,
-				"buzz");
+		bees = new GenericBehaviorActivator<>(COMMUNITY, SIMU_GROUP, BEE_ROLE, "buzz");
 		addActivator(bees);
-		GenericBehaviorActivator<AbstractAgent> viewer = new GenericBehaviorActivator<>(
-				COMMUNITY, SIMU_GROUP, "bee observer", "observe");
+		GenericBehaviorActivator<AbstractAgent> viewer = new GenericBehaviorActivator<>(COMMUNITY, SIMU_GROUP,
+				"bee observer", "observe");
 		addActivator(viewer);
 		// auto starting myself the agent way
 		receiveMessage(new SchedulingMessage(SchedulingAction.RUN));
@@ -64,8 +63,7 @@ public class PlayerScheduler extends madkit.kernel.Scheduler {
 			try {
 				boolean mutiCore = ((ObjectMessage<Boolean>) m).getContent();
 				if (mutiCore) {
-					bees.useMulticore(Runtime.getRuntime()
-							.availableProcessors());
+					bees.useMulticore(Runtime.getRuntime().availableProcessors());
 				} else {
 					bees.useMulticore(1);
 				}

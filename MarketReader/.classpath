@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/j2h.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/TurtleKit"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/MaDKit"/>
+	<classpathentry kind="lib" path="/home/vim/git/MadkitStudy/MarketReader/lib/madkit-5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

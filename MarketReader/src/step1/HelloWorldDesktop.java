@@ -19,21 +19,18 @@ import madkit.kernel.Madkit;
 public class HelloWorldDesktop {
 
 	/**
-	 * The only thing to do is to pass the --desktop parameter to the main
-	 * method of MaDKit.
+	 * The only thing to do is to pass the --desktop parameter to the main method of
+	 * MaDKit.
 	 * 
-	 * @param args
-	 *            useless in this example
+	 * @param args useless in this example
 	 */
 	public static void main(String[] args) {
-		String[] args2 = { "--desktop", "--launchAgents",
-				"step1.HelloWorldAgent,true" };
+		String[] args2 = { "--desktop", "--launchAgents", "step1.HelloWorldAgent,true" };
 		Madkit.main(args2);
 	}
 
 	/*
-	 * What we used here is exactly the same as : String[] argss =
-	 * {BooleanOption
+	 * What we used here is exactly the same as : String[] argss = {BooleanOption
 	 * .desktop.toString(),Madkit.Option.launchAgents.toString(),HelloWorldAgent
 	 * .class.getName()+",true"}; Madkit.main(argss);
 	 */

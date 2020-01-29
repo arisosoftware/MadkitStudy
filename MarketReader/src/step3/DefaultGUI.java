@@ -18,18 +18,14 @@ public class DefaultGUI extends Agent {
 	@Override
 	protected void activate() {
 
-		getLogger()
-				.info("I have a default GUI which is automatically created for me \n because there was \n "
-						+ "--launchAgents "
-						+ getClass().getName()
-						+ ",true \n on the command line");
+		getLogger().info("I have a default GUI which is automatically created for me \n because there was \n "
+				+ "--launchAgents " + getClass().getName() + ",true \n on the command line");
 		pause(2000);
 	}
 
 	@Override
 	protected void live() {
-		getLogger()
-				.info("I now launch two hello world agents:\n one with a GUI and one without");
+		getLogger().info("I now launch two hello world agents:\n one with a GUI and one without");
 		pause(1000);
 		// the one with no GUI: default argument for launchAgent
 		launchAgent(new step1.HelloWorldAgent());
@@ -42,8 +38,7 @@ public class DefaultGUI extends Agent {
 	 * @param args
 	 */
 	public static void main(String[] argss) {
-		String[] args = { "--launchAgents",
-				DefaultGUI.class.getName() + ",true" };
+		String[] args = { "--launchAgents", DefaultGUI.class.getName() + ",true" };
 		Madkit.main(args);
 	}
 

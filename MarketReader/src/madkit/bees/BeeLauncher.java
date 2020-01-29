@@ -45,8 +45,7 @@ public class BeeLauncher extends madkit.kernel.Agent {
 
 	private static final int INITIAL_BEES_NB = 30000;
 	private ArrayList<AbstractAgent> queensList = new ArrayList<>();
-	private ArrayList<AbstractAgent> beesList = new ArrayList<>(
-			INITIAL_BEES_NB * 2);
+	private ArrayList<AbstractAgent> beesList = new ArrayList<>(INITIAL_BEES_NB * 2);
 	private boolean randomMode = true;
 
 	@Override
@@ -57,8 +56,7 @@ public class BeeLauncher extends madkit.kernel.Agent {
 
 		long startTime = System.nanoTime();
 		launchBees(INITIAL_BEES_NB);
-		getLogger().info(
-				() -> "launch time : " + (System.nanoTime() - startTime));
+		getLogger().info(() -> "launch time : " + (System.nanoTime() - startTime));
 
 		BeeScheduler beeScheduler = new BeeScheduler();
 		launchAgent(beeScheduler, false);
@@ -101,8 +99,7 @@ public class BeeLauncher extends madkit.kernel.Agent {
 					} else if (queensList.size() < 10)
 						launchQueens((int) (Math.random() * 2) + 1);
 				} else if (Math.random() < .3) {
-					if (beesList.size() < 200000
-							&& Runtime.getRuntime().freeMemory() > 100000) {
+					if (beesList.size() < 200000 && Runtime.getRuntime().freeMemory() > 100000) {
 						launchBees((int) (Math.random() * 15000) + 5000);
 					}
 				} else {
@@ -122,10 +119,8 @@ public class BeeLauncher extends madkit.kernel.Agent {
 	private void launchBees(int numberOfBees) {
 		getLogger().info(() -> "Launching " + numberOfBees + " bees");
 		// greatly optimizes the launching time
-		final List<AbstractAgent> beesBucket = launchAgentBucket(
-				Bee.class.getName(), numberOfBees, COMMUNITY + "," + SIMU_GROUP
-						+ "," + BEE_ROLE, COMMUNITY + "," + SIMU_GROUP + ","
-						+ FOLLOWER_ROLE);
+		final List<AbstractAgent> beesBucket = launchAgentBucket(Bee.class.getName(), numberOfBees,
+				COMMUNITY + "," + SIMU_GROUP + "," + BEE_ROLE, COMMUNITY + "," + SIMU_GROUP + "," + FOLLOWER_ROLE);
 		beesList.addAll(beesBucket);
 	}
 
@@ -145,8 +140,7 @@ public class BeeLauncher extends madkit.kernel.Agent {
 			l = queensList;
 		else
 			l = beesList;
-		for (final Iterator<AbstractAgent> i = l.iterator(); i.hasNext()
-				&& j < number; j++) {
+		for (final Iterator<AbstractAgent> i = l.iterator(); i.hasNext() && j < number; j++) {
 			if (j % 100 == 0) {
 				Thread.yield();
 			}

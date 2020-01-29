@@ -8,13 +8,12 @@ import madkit.kernel.AgentAddress;
 import madkit.message.ObjectMessage;
 import madkit.message.StringMessage;
 
-public class Player extends Agent  implements Comparable<AbstractAgent>  {
+public class Player extends Agent implements Comparable<AbstractAgent> {
 	AgentAddress room = null;
 
 	@Override
 	protected void activate() {
-		requestRole(GameRoom.COMMUNITY, GameRoom.SIMU_GROUP,
-				GameRoom.Player_ROLE, null);
+		requestRole(GameRoom.COMMUNITY, GameRoom.SIMU_GROUP, GameRoom.Player_ROLE, null);
 	}
 
 	public int Id;
@@ -28,8 +27,7 @@ public class Player extends Agent  implements Comparable<AbstractAgent>  {
 		while (this.isAlive()) {
 
 			if (room == null) {
-				room = getAgentWithRole(GameRoom.COMMUNITY,
-						GameRoom.SIMU_GROUP, GameRoom.Room_ROLE);
+				room = getAgentWithRole(GameRoom.COMMUNITY, GameRoom.SIMU_GROUP, GameRoom.Room_ROLE);
 			}
 
 			ObjectMessage<Cheque> ball = (ObjectMessage<Cheque>) waitNextMessage(1000);
@@ -50,8 +48,7 @@ public class Player extends Agent  implements Comparable<AbstractAgent>  {
 		c.SenderId = this.Id;
 		c.ReceiverId = receiverId;
 
-		sendMessage(GameRoom.COMMUNITY, GameRoom.SIMU_GROUP,
-				GameRoom.Room_ROLE, new ObjectMessage(c));
+		sendMessage(GameRoom.COMMUNITY, GameRoom.SIMU_GROUP, GameRoom.Room_ROLE, new ObjectMessage(c));
 
 	}
 
@@ -62,7 +59,7 @@ public class Player extends Agent  implements Comparable<AbstractAgent>  {
 	}
 
 	/* For Ascending order */
-	//@Override
+	// @Override
 	public int compareTo(Player comparestu) {
 		int compareage = ((Player) comparestu).Amount;
 		return this.Amount - Amount;

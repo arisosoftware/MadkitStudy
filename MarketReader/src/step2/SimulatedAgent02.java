@@ -6,8 +6,7 @@ public class SimulatedAgent02 extends AbstractAgent {
 
 	@Override
 	protected void activate() {
-		requestRole(SimulationModel.MY_COMMUNITY, SimulationModel.SIMU_GROUP,
-				SimulationModel.ROLE);
+		requestRole(SimulationModel.MY_COMMUNITY, SimulationModel.SIMU_GROUP, SimulationModel.ROLE);
 	}
 
 	@SuppressWarnings("unused")

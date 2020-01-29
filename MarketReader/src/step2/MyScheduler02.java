@@ -31,9 +31,8 @@ public class MyScheduler02 extends Scheduler {
 		}
 
 		// 3 : initialize the activator
-		activator1 = new GenericBehaviorActivator<AbstractAgent>(
-				SimulationModel.MY_COMMUNITY, SimulationModel.SIMU_GROUP,
-				SimulationModel.ROLE, "doIt");
+		activator1 = new GenericBehaviorActivator<AbstractAgent>(SimulationModel.MY_COMMUNITY,
+				SimulationModel.SIMU_GROUP, SimulationModel.ROLE, "doIt");
 		addActivator(activator1);
 
 		setDelay(300);
@@ -45,8 +44,7 @@ public class MyScheduler02 extends Scheduler {
 	 * @param
 	 */
 	public static void main(String[] args) {
-		new Madkit("--launchAgents", MyScheduler02.class.getName() + ",true;"
-				+ ConsoleAgent.class.getName());
+		new Madkit("--launchAgents", MyScheduler02.class.getName() + ",true;" + ConsoleAgent.class.getName());
 	}
 
 }

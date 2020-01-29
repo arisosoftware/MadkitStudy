@@ -32,14 +32,10 @@ public class BeeEnvironment {
 
 	private Dimension envSize;
 
-	private final DefaultBoundedRangeModel queenAcceleration = new DefaultBoundedRangeModel(
-			5, 1, 0, 21);
-	private final DefaultBoundedRangeModel beeAcceleration = new DefaultBoundedRangeModel(
-			3, 1, 0, 21);
-	private final DefaultBoundedRangeModel queenVelocity = new DefaultBoundedRangeModel(
-			12, 1, 0, 21);
-	private final DefaultBoundedRangeModel beeVelocity = new DefaultBoundedRangeModel(
-			9, 1, 0, 21);
+	private final DefaultBoundedRangeModel queenAcceleration = new DefaultBoundedRangeModel(5, 1, 0, 21);
+	private final DefaultBoundedRangeModel beeAcceleration = new DefaultBoundedRangeModel(3, 1, 0, 21);
+	private final DefaultBoundedRangeModel queenVelocity = new DefaultBoundedRangeModel(12, 1, 0, 21);
+	private final DefaultBoundedRangeModel beeVelocity = new DefaultBoundedRangeModel(9, 1, 0, 21);
 
 	/**
 	 * @return the queenAcceleration
@@ -89,8 +85,7 @@ public class BeeEnvironment {
 	}
 
 	/**
-	 * @param envSize
-	 *            the envSize to set
+	 * @param envSize the envSize to set
 	 */
 	public final void setEnvSize(Dimension envSize) {
 		this.envSize = envSize;

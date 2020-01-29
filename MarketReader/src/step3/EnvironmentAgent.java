@@ -31,20 +31,17 @@ public class EnvironmentAgent extends Watcher {
 		dimension = new Dimension(400, 400);
 
 		// 1 : request my role so that the viewer can probe me
-		requestRole(MySimulationModel.MY_COMMUNITY,
-				MySimulationModel.SIMU_GROUP, MySimulationModel.ENV_ROLE);
+		requestRole(MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP, MySimulationModel.ENV_ROLE);
 
 		// 2 : this probe is used to initialize the agents' environment field
-		addProbe(new AgentsProbe(MySimulationModel.MY_COMMUNITY,
-				MySimulationModel.SIMU_GROUP, MySimulationModel.AGENT_ROLE,
-				"environment"));
+		addProbe(new AgentsProbe(MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP,
+				MySimulationModel.AGENT_ROLE, "environment"));
 
 	}
 
 	class AgentsProbe extends PropertyProbe<AbstractAgent, EnvironmentAgent> {
 
-		public AgentsProbe(String community, String group, String role,
-				String fieldName) {
+		public AgentsProbe(String community, String group, String role, String fieldName) {
 			super(community, group, role, fieldName);
 		}
 

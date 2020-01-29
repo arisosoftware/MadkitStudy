@@ -64,12 +64,10 @@ public class Bee extends AbstractBee {
 			if (leader == null)
 				followNewLeader(m);
 			else {
-				List<AgentAddress> queens = getAgentsWithRole(COMMUNITY,
-						SIMU_GROUP, QUEEN_ROLE);
-				if (queens != null
-						&& generator.nextDouble() < (1.0 / queens.size())) {// change
-																			// leader
-																			// randomly
+				List<AgentAddress> queens = getAgentsWithRole(COMMUNITY, SIMU_GROUP, QUEEN_ROLE);
+				if (queens != null && generator.nextDouble() < (1.0 / queens.size())) {// change
+																						// leader
+																						// randomly
 					followNewLeader(m);
 				}
 			}

@@ -77,8 +77,7 @@ public class BeeViewer extends SwingViewer {
 
 	private final BeeEnvironment environment;
 	private JPanel display;
-	private AbstractAction synchroPaint, artMode, randomMode, launch,
-			trailModeAction, multicoreMode;
+	private AbstractAction synchroPaint, artMode, randomMode, launch, trailModeAction, multicoreMode;
 	private PropertyProbe<AbstractBee, BeeInformation> beeProbe;
 	private final BeeScheduler sch;
 	protected int nbOfBeesToLaunch = 30000;
@@ -92,8 +91,7 @@ public class BeeViewer extends SwingViewer {
 	@Override
 	protected void activate() {
 		requestRole(COMMUNITY, SIMU_GROUP, "bee observer");
-		beeProbe = new PropertyProbe<AbstractBee, BeeInformation>(COMMUNITY,
-				SIMU_GROUP, BEE_ROLE, "myInformation") {
+		beeProbe = new PropertyProbe<AbstractBee, BeeInformation>(COMMUNITY, SIMU_GROUP, BEE_ROLE, "myInformation") {
 
 			@Override
 			public void adding(AbstractBee bee) {
@@ -108,12 +106,10 @@ public class BeeViewer extends SwingViewer {
 	@Override
 	protected void end() {
 		removeProbe(beeProbe);
-		sendMessage(COMMUNITY, SIMU_GROUP, LAUNCHER_ROLE, new KernelMessage(
-				KernelAction.EXIT));
-		sendMessage(COMMUNITY, SIMU_GROUP, SCHEDULER_ROLE,
-				new SchedulingMessage(SchedulingAction.SHUTDOWN));// stopping
-																	// the
-																	// scheduler
+		sendMessage(COMMUNITY, SIMU_GROUP, LAUNCHER_ROLE, new KernelMessage(KernelAction.EXIT));
+		sendMessage(COMMUNITY, SIMU_GROUP, SCHEDULER_ROLE, new SchedulingMessage(SchedulingAction.SHUTDOWN));// stopping
+																												// the
+																												// scheduler
 		leaveRole(COMMUNITY, SIMU_GROUP, VIEWER_ROLE);
 	}
 
@@ -125,11 +121,9 @@ public class BeeViewer extends SwingViewer {
 	}
 
 	private void computeFromInfoProbe(Graphics g) {
-		g.drawString("You are watching " + beeProbe.size() + " MaDKit agents",
-				10, 10);
+		g.drawString("You are watching " + beeProbe.size() + " MaDKit agents", 10, 10);
 		Color lastColor = null;
-		final boolean trailMode = (Boolean) trailModeAction
-				.getValue(Action.SELECTED_KEY);
+		final boolean trailMode = (Boolean) trailModeAction.getValue(Action.SELECTED_KEY);
 		for (final AbstractBee arg0 : beeProbe.getCurrentAgentsList()) {
 			final BeeInformation b = beeProbe.getPropertyValue(arg0);
 			final Color c = b.getBeeColor();
@@ -166,20 +160,16 @@ public class BeeViewer extends SwingViewer {
 		options.add(launch);
 		jmenubar.add(options);
 
-		ActionListener beeLaunchActionListener = evt -> sendLaunchMessage(Integer
-				.parseInt(evt.getActionCommand()));
+		ActionListener beeLaunchActionListener = evt -> sendLaunchMessage(Integer.parseInt(evt.getActionCommand()));
 
-		JMenu numberOfBees = new JMenu(
-				"Number of bees to launch when clicking the icon");
+		JMenu numberOfBees = new JMenu("Number of bees to launch when clicking the icon");
 		JMenu launchBees = new JMenu("Launching");
 		ButtonGroup bgroup = new ButtonGroup();
 		int defaultBeesNb = 10000;
 		for (int i = 1000; i <= 1000000; i *= 10) {
-			JRadioButtonMenuItem item = new JRadioButtonMenuItem("Launch " + i
-					+ " bees");
+			JRadioButtonMenuItem item = new JRadioButtonMenuItem("Launch " + i + " bees");
 			item.setActionCommand(new Integer(i).toString().toString());
-			item.addActionListener(e -> nbOfBeesToLaunch = Integer.parseInt(e
-					.getActionCommand()));
+			item.addActionListener(e -> nbOfBeesToLaunch = Integer.parseInt(e.getActionCommand()));
 			JMenuItem it = new JMenuItem("Launch " + i + " bees");
 			it.addActionListener(beeLaunchActionListener);
 			it.setActionCommand("" + i);
@@ -232,14 +222,10 @@ public class BeeViewer extends SwingViewer {
 		tools.add(sch.getSchedulerToolBar());
 
 		JToolBar modelProperties = new JToolBar();
-		modelProperties.add(SwingUtil.createSliderPanel(
-				environment.getQueenAcceleration(), "queen acceleration"));
-		modelProperties.add(SwingUtil.createSliderPanel(
-				environment.getQueenVelocity(), "queen velocity"));
-		modelProperties.add(SwingUtil.createSliderPanel(
-				environment.getBeeAcceleration(), "bee acceleration"));
-		modelProperties.add(SwingUtil.createSliderPanel(
-				environment.getBeeVelocity(), "bee velocity"));
+		modelProperties.add(SwingUtil.createSliderPanel(environment.getQueenAcceleration(), "queen acceleration"));
+		modelProperties.add(SwingUtil.createSliderPanel(environment.getQueenVelocity(), "queen velocity"));
+		modelProperties.add(SwingUtil.createSliderPanel(environment.getBeeAcceleration(), "bee acceleration"));
+		modelProperties.add(SwingUtil.createSliderPanel(environment.getBeeVelocity(), "bee velocity"));
 		tools.add(modelProperties);
 
 		frame.add(sch.getSchedulerStatusLabel(), BorderLayout.SOUTH);
@@ -262,13 +248,10 @@ public class BeeViewer extends SwingViewer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setSynchronousPainting(!(Boolean) synchroPaint
-						.getValue(Action.SELECTED_KEY));
+				setSynchronousPainting(!(Boolean) synchroPaint.getValue(Action.SELECTED_KEY));
 			}
 		};
-		initActionIcon(synchroPaint,
-				"Deactivate the synchronous painting mode (faster)",
-				"synchroPaint");
+		initActionIcon(synchroPaint, "Deactivate the synchronous painting mode (faster)", "synchroPaint");
 		synchroPaint.putValue(Action.SELECTED_KEY, false);
 		artMode = new AbstractAction("Art mode") {
 
@@ -283,28 +266,21 @@ public class BeeViewer extends SwingViewer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sendMessage(COMMUNITY, SIMU_GROUP, LAUNCHER_ROLE,
-						new EnumMessage<>(BeeLauncherAction.RANDOM_MODE,
-								randomMode.getValue(SELECTED_KEY)));
+						new EnumMessage<>(BeeLauncherAction.RANDOM_MODE, randomMode.getValue(SELECTED_KEY)));
 			}
 		};
-		initActionIcon(randomMode, "Random mode: Randomly launch or kill bees",
-				"random");
+		initActionIcon(randomMode, "Random mode: Randomly launch or kill bees", "random");
 		randomMode.putValue(Action.SELECTED_KEY, true);
 
 		multicoreMode = new AbstractAction("Multicore mode") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sendMessage(
-						COMMUNITY,
-						SIMU_GROUP,
-						BeeLauncher.SCHEDULER_ROLE,
-						new ObjectMessage<>((Boolean) multicoreMode
-								.getValue(SELECTED_KEY)));
+				sendMessage(COMMUNITY, SIMU_GROUP, BeeLauncher.SCHEDULER_ROLE,
+						new ObjectMessage<>((Boolean) multicoreMode.getValue(SELECTED_KEY)));
 			}
 		};
-		initActionIcon(
-				multicoreMode,
+		initActionIcon(multicoreMode,
 				"Multicore mode: Use several processor cores if available (more efficient if synchro painting is off",
 				"multicore");
 		// randomMode.putValue(Action.SELECTED_KEY, false);
@@ -315,10 +291,7 @@ public class BeeViewer extends SwingViewer {
 			public void actionPerformed(ActionEvent e) {
 			}
 		};
-		initActionIcon(
-				trailModeAction,
-				"Trails mode: display agents with trails or like point particles",
-				"trail");
+		initActionIcon(trailModeAction, "Trails mode: display agents with trails or like point particles", "trail");
 		trailModeAction.putValue(Action.SELECTED_KEY, true);
 
 		launch = new AbstractAction("Launch bees") {
@@ -331,21 +304,18 @@ public class BeeViewer extends SwingViewer {
 		initActionIcon(launch, "Launch some bees", "launch");
 	}
 
-	private void initActionIcon(AbstractAction a, String description,
-			String actionCommand) {
+	private void initActionIcon(AbstractAction a, String description, String actionCommand) {
 		a.putValue(Action.SELECTED_KEY, false);
 		a.putValue(Action.ACTION_COMMAND_KEY, actionCommand);
 		a.putValue(AbstractAction.SHORT_DESCRIPTION, description);
-		ImageIcon big = new ImageIcon(getClass().getResource(
-				"images/bees_" + actionCommand + ".png"));
+		ImageIcon big = new ImageIcon(getClass().getResource("images/bees_" + actionCommand + ".png"));
 		a.putValue(AbstractAction.LARGE_ICON_KEY, big);
-		a.putValue(AbstractAction.SMALL_ICON, new ImageIcon(big.getImage()
-				.getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+		a.putValue(AbstractAction.SMALL_ICON,
+				new ImageIcon(big.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
 	}
 
 	private void sendLaunchMessage(int nb) {
-		sendMessage(COMMUNITY, SIMU_GROUP, LAUNCHER_ROLE, new EnumMessage<>(
-				BeeLauncherAction.LAUNCH_BEES, nb));
+		sendMessage(COMMUNITY, SIMU_GROUP, LAUNCHER_ROLE, new EnumMessage<>(BeeLauncherAction.LAUNCH_BEES, nb));
 
 	}
 

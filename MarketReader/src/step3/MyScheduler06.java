@@ -26,19 +26,16 @@ public class MyScheduler06 extends Scheduler {
 	protected void activate() {
 
 		// 1 : request my role
-		requestRole(MySimulationModel.MY_COMMUNITY,
-				MySimulationModel.SIMU_GROUP, MySimulationModel.SCH_ROLE);
+		requestRole(MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP, MySimulationModel.SCH_ROLE);
 
 		// 3 : initialize the activators
 		// by default, they are activated once each in the order they have been
 		// added
-		agents = new GenericBehaviorActivator<AbstractAgent>(
-				MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP,
-				MySimulationModel.AGENT_ROLE, "doIt");
+		agents = new GenericBehaviorActivator<AbstractAgent>(MySimulationModel.MY_COMMUNITY,
+				MySimulationModel.SIMU_GROUP, MySimulationModel.AGENT_ROLE, "doIt");
 		addActivator(agents);
-		viewers = new GenericBehaviorActivator<AbstractAgent>(
-				MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP,
-				MySimulationModel.VIEWER_ROLE, "observe");
+		viewers = new GenericBehaviorActivator<AbstractAgent>(MySimulationModel.MY_COMMUNITY,
+				MySimulationModel.SIMU_GROUP, MySimulationModel.VIEWER_ROLE, "observe");
 		addActivator(viewers);
 
 		setDelay(20);
@@ -51,7 +48,6 @@ public class MyScheduler06 extends Scheduler {
 	 * A simple way of launching this scheduler
 	 */
 	public static void main(String[] args) {
-		new Madkit("--launchAgents", MyScheduler06.class.getName() + ",true;"
-				+ ConsoleAgent.class.getName());
+		new Madkit("--launchAgents", MyScheduler06.class.getName() + ",true;" + ConsoleAgent.class.getName());
 	}
 }

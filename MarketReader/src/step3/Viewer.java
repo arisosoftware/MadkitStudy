@@ -29,15 +29,13 @@ public class Viewer extends SwingViewer {
 	@Override
 	protected void activate() {
 		// 1 : request my role so that the scheduler can take me into account
-		requestRole(MySimulationModel.MY_COMMUNITY,
-				MySimulationModel.SIMU_GROUP, MySimulationModel.VIEWER_ROLE);
+		requestRole(MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP, MySimulationModel.VIEWER_ROLE);
 
 		// 2 : adding the probes
 
 		// probing the environment using an anonymous inner class
 		SingleAgentProbe<EnvironmentAgent, Dimension> envProbe = new SingleAgentProbe<EnvironmentAgent, Dimension>(
-				MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP,
-				MySimulationModel.ENV_ROLE, "dimension") {
+				MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP, MySimulationModel.ENV_ROLE, "dimension") {
 
 			@Override
 			protected void adding(EnvironmentAgent agent) {
@@ -48,9 +46,8 @@ public class Viewer extends SwingViewer {
 		addProbe(envProbe);
 
 		// probing agents' location
-		agentsLocationProbe = new PropertyProbe<SituatedAgent, Dimension>(
-				MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP,
-				MySimulationModel.AGENT_ROLE, "location");
+		agentsLocationProbe = new PropertyProbe<SituatedAgent, Dimension>(MySimulationModel.MY_COMMUNITY,
+				MySimulationModel.SIMU_GROUP, MySimulationModel.AGENT_ROLE, "location");
 		addProbe(agentsLocationProbe);
 
 		// 3 : Now that the probes are added,
@@ -68,8 +65,8 @@ public class Viewer extends SwingViewer {
 	}
 
 	/**
-	 * render is the method where the custom painting has to be done. Here, we
-	 * just draw red points at the agents' location
+	 * render is the method where the custom painting has to be done. Here, we just
+	 * draw red points at the agents' location
 	 */
 	@Override
 	protected void render(Graphics g) {
