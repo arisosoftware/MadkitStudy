@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="MarketReader/src"/>
+	<classpathentry kind="src" path="playground/src/main/java"/>
+	<classpathentry kind="src" path="playground/src/test/java"/>
+	<classpathentry kind="src" path="TurtleKit/demos"/>
+	<classpathentry kind="src" path="TurtleKit/src"/>
+	<classpathentry kind="lib" path="MarketReader/lib/j2h.jar"/>
+	<classpathentry kind="lib" path="MarketReader/lib/madkit-5.2.jar"/>
+	<classpathentry kind="lib" path="TurtleKit/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="TurtleKit/lib/jcuda-0.7.5b.jar"/>
+	<classpathentry kind="lib" path="TurtleKit/lib/jcudaUtils-0.0.4.jar"/>
+	<classpathentry kind="lib" path="TurtleKit/lib/jcurand-0.7.5b.jar"/>
+	<classpathentry kind="lib" path="TurtleKit/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="TurtleKit/lib/madkit-5.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
