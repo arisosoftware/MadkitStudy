@@ -1,0 +1,11 @@
+Sun Mar 01 12:42:13 CST 2020 main threw an exception:
+java.lang.NullPointerException
+	at de.gurkenlabs.litiengine.environment.CreatureMapObjectLoader.createNewCreature(CreatureMapObjectLoader.java:93)
+	at de.gurkenlabs.litiengine.environment.CreatureMapObjectLoader.load(CreatureMapObjectLoader.java:75)
+	at de.gurkenlabs.litiengine.environment.Environment.load(Environment.java:1388)
+	at de.gurkenlabs.litiengine.environment.Environment.loadMapObjects(Environment.java:1803)
+	at de.gurkenlabs.litiengine.environment.Environment.init(Environment.java:1333)
+	at de.gurkenlabs.litiengine.environment.Environment.load(Environment.java:1347)
+	at de.gurkenlabs.litiengine.environment.GameWorld.loadEnvironment(GameWorld.java:380)
+	at de.gurkenlabs.litiengine.environment.GameWorld.loadEnvironment(GameWorld.java:421)
+	at com.litiengine.gurknukem.Program.main(Program.java:46)
