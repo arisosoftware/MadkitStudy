@@ -67,3 +67,10 @@ https://zhuanlan.zhihu.com/p/32349669?group_id=929167391947661312
 
 
 
+
+
+
+
+## 2020 Apr 28
+https://www.anylogic.com/s/download-free-simulation-software-for-education/
+https://jishuin.proginn.com/p/6335.html
