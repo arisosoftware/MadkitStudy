@@ -83,7 +83,7 @@ public class Simulation {
 	 */
 	private void prepareValuesForTimestep() {
 		this.model.getModelEntities().forEach((k, v) -> {
-			v.setPreviousValue(v.getCurrentValue());
+			v.setPreviousValue(v.theValue());
 			v.setCurrentValueCalculated(false);
 		});
 	}

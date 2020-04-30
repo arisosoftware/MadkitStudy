@@ -43,7 +43,7 @@ public abstract class AbstractModelEntity {
 	/**
 	 * @return current model entity value.
 	 */
-	public double getCurrentValue() {
+	public double theValue() {
 		return this.currentValue;
 	}
 

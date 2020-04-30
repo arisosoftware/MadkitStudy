@@ -136,6 +136,11 @@ public class Model {
 		return converter;
 	}
 
+	public void flowMoveTo(Nodes source, Nodes target, Flow flow) throws SimException {
+		target.addInputFlows(flow);
+		source.addOutputFlows(flow);
+	}
+
 	/**
 	 * @param converter converter to add.
 	 */
@@ -227,7 +232,7 @@ public class Model {
 		ArrayList<AbstractModelEntity> modelEntities = new ArrayList<AbstractModelEntity>(this.modelEntities.values());
 		ArrayList<String> modelEntitiesValues = new ArrayList<String>();
 		modelEntities.forEach((modelEntity) -> {
-			modelEntitiesValues.add(new DecimalFormat("#.######").format(modelEntity.getCurrentValue()));
+			modelEntitiesValues.add(new DecimalFormat("#.######").format(modelEntity.theValue()));
 		});
 		return modelEntitiesValues;
 	}
@@ -249,25 +254,37 @@ public class Model {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-
-		sb.append(this.currentTime);
+		StringBuffer sb2 = new StringBuffer();
+		sb.append( new DecimalFormat("000").format(this.currentTime) );
 		this.modelEntities.values().forEach((modelEntity) -> {
-			sb.append("  " + modelEntity.getName() + ":"
-					+ new DecimalFormat("#.######").format(modelEntity.getCurrentValue()));
+					
+			if (modelEntity instanceof Nodes)
+			{
+				sb.append("\t" + modelEntity.getName() + ":" + new DecimalFormat("#####.000").format(modelEntity.theValue()));	
+			}
+			else
+			{
+				sb2.append("\t" + modelEntity.getName() + ":" + new DecimalFormat("#####.000").format(modelEntity.theValue()));
+			}
+			
 			// sb.append("\n");
 		});
-		return sb.toString();
+		return sb.toString()+"\t\t\t"+sb2.toString();
 		// return "Model [modelEntities=" + this.modelEntities + "]";
 	}
 
 	/**
 	 * @param integration integration to set.
 	 */
-	public void DebugToConsole() {
-		System.out.println("DebugToConsole");
+	public void reportConsole() {
+		System.out.println("reportConsole");
 		this.modelEntities.values().forEach((modelEntity) -> {
-			System.out.println(
-					modelEntity.getName() + ":" + new DecimalFormat("#.######").format(modelEntity.getCurrentValue()));
+
+			if (modelEntity instanceof Nodes) {
+				Nodes theNode = (Nodes) modelEntity;
+				System.out.println(theNode.getName() + ":" + new DecimalFormat("#.######").format(theNode.theValue()));
+			}
+
 		});
 
 	}

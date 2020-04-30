@@ -116,20 +116,20 @@ public class Nodes extends AbstractModelEntity {
 		this.changeRateFunction = changeRateFunction;
 	}
 
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		Nodes node = new Nodes(this.getName());
-		node.setCurrentValue(this.getCurrentValue());
-		node.setInitialValue(getInitialValue());
-		node.setPreviousValue(this.getPreviousValue());
-		ArrayList<Flow> inputFlows = new ArrayList<Flow>();
-		ArrayList<Flow> outputFlows = new ArrayList<Flow>();
-		for (Flow flow : this.getInputFlows()) {
-			inputFlows.add((Flow) flow.clone());
-		}
-		for (Flow flow : this.getOutputFlows()) {
-			outputFlows.add((Flow) flow.clone());
-		}
-		return node;
-	}
+//	@Override
+//	public Object clone() throws CloneNotSupportedException {
+//		Nodes node = new Nodes(this.getName());
+//		node.setCurrentValue(this.getCurrentValue());
+//		node.setInitialValue(getInitialValue());
+//		node.setPreviousValue(this.getPreviousValue());
+//		ArrayList<Flow> inputFlows = new ArrayList<Flow>();
+//		ArrayList<Flow> outputFlows = new ArrayList<Flow>();
+//		for (Flow flow : this.getInputFlows()) {
+//			inputFlows.add((Flow) flow.clone());
+//		}
+//		for (Flow flow : this.getOutputFlows()) {
+//			outputFlows.add((Flow) flow.clone());
+//		}
+//		return node;
+//	}
 }

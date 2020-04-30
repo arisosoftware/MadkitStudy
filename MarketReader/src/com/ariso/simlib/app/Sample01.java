@@ -47,7 +47,7 @@ public class Sample01 {
 			population.addInputFlows(births);
 			population.addOutputFlows(deaths);
 			population.setInitialValue(5000);
-			population.setChangeRateFunction(() -> births.getCurrentValue() - deaths.getCurrentValue());
+			population.setChangeRateFunction(() -> births.theValue() - deaths.theValue());
 
 			deaths.setInitialValue(100);
 			birthRate.setInitialValue(0.1);
@@ -62,7 +62,7 @@ public class Sample01 {
 		birthsConverter.setFunction(new ComputeInterface() {
 			@Override
 			public double calculateEntityValue() {
-				double result = birthRate.getCurrentValue() * population.getCurrentValue();
+				double result = birthRate.theValue() * population.theValue();
 				return result;
 			}
 		});
@@ -70,17 +70,17 @@ public class Sample01 {
 		model.setFinalTime(20);
 		simulation.run();
 
-		model.DebugToConsole();
+		model.reportConsole();
 
 	}
 
 	public void logicFunctionTest() {
 		Converter birthsConverter = model.createConverter(births, birthRate, population);
 		birthsConverter.setFunction(() -> {
-			if (population.getCurrentValue() >= 10000)
+			if (population.theValue() >= 10000)
 				return 0;
 			else {
-				double result = birthRate.getCurrentValue() * population.getCurrentValue();
+				double result = birthRate.theValue() * population.theValue();
 				return result;
 			}
 		});
@@ -88,7 +88,7 @@ public class Sample01 {
 		simulation.run();
 		HashMap<String, AbstractModelEntity> entities = model.getModelEntities();
 
-		model.DebugToConsole();
+		model.reportConsole();
 
 	}
 
@@ -97,7 +97,7 @@ public class Sample01 {
 		birthsConverter.setFunction(new ComputeInterface() {
 			@Override
 			public double calculateEntityValue() {
-				double result = birthRate.getCurrentValue() * population.getCurrentValue();
+				double result = birthRate.theValue() * population.theValue();
 				return result;
 			}
 		});
