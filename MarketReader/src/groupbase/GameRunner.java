@@ -5,25 +5,17 @@ import java.util.ArrayList;
 public class GameRunner {
 
 	public static void main(String[] args) {
-		 	ArrayList<Space> sp = new ArrayList<Space>();
-		 	Space zeroSp = new Space();
-		 	for(int i=0;i<1000;i++)
-		 	{
-		 		Space nextSp = new Space();
-		 		
-		 		
-		 		
-		 		
-		 		
-		 	}
-		 	
+		ArrayList<Steps> sp = new ArrayList<Steps>();
+		Steps zeroSp = new Steps();
+		for (int i = 0; i < 1000; i++) {
+
+		}
 
 	}
-	
-	
-	static Space TurnNext(Space now)
-	{
-		
+
+	static Steps TurnNext(Steps currentStep) {
+		Steps Next = new Steps();
+
 		return null;
 	}
 

@@ -1,5 +1,5 @@
 package groupbase;
 
-public class GrassGroup {
+public class GridSpace {
 	public long Count;
 }
