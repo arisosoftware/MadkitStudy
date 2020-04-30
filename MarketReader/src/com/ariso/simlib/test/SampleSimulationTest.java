@@ -84,30 +84,30 @@ public class SampleSimulationTest {
 
 			// Create converters
 			Converter deathsPreyConverter = model.createConverter(deathsPrey, meetings, lossRatePrey);
-			deathsPreyConverter.setFunction(() -> meetings.getCurrentValue() * lossRatePrey.getCurrentValue());
+			deathsPreyConverter.setFunction(() -> meetings.theValue() * lossRatePrey.theValue());
 
 			Converter birthsPreyConverter = model.createConverter(birthsPrey, populationPrey, expansionRatePrey);
 			birthsPreyConverter
-					.setFunction(() -> populationPrey.getCurrentValue() * expansionRatePrey.getCurrentValue());
+					.setFunction(() -> populationPrey.theValue() * expansionRatePrey.theValue());
 
 			Converter deathsPredatorConverter = model.createConverter(deathsPredator, populationPredator,
 					lossRatePredator);
 			deathsPredatorConverter
-					.setFunction(() -> populationPredator.getCurrentValue() * lossRatePredator.getCurrentValue());
+					.setFunction(() -> populationPredator.theValue() * lossRatePredator.theValue());
 
 			// Approach for converting entity values by implementing IFunction
 			// with an inner class
 			Converter meetingsConverter = model.createConverter(meetings, populationPrey, populationPredator);
 			meetingsConverter
-					.setFunction(() -> populationPrey.getCurrentValue() * populationPredator.getCurrentValue());
+					.setFunction(() -> populationPrey.theValue() * populationPredator.theValue());
 
 			Converter birthsPredatorConverter = model.createConverter(birthsPredator, meetings, expansionRatePredator);
 			birthsPredatorConverter
-					.setFunction(() -> meetings.getCurrentValue() * expansionRatePredator.getCurrentValue());
+					.setFunction(() -> meetings.theValue() * expansionRatePredator.theValue());
 
-			populationPrey.setChangeRateFunction(() -> birthsPrey.getCurrentValue() - deathsPrey.getCurrentValue());
+			populationPrey.setChangeRateFunction(() -> birthsPrey.theValue() - deathsPrey.theValue());
 			populationPredator
-					.setChangeRateFunction(() -> birthsPredator.getCurrentValue() - deathsPredator.getCurrentValue());
+					.setChangeRateFunction(() -> birthsPredator.theValue() - deathsPredator.theValue());
 
 		} catch (SimException e) {
 			e.printStackTrace();

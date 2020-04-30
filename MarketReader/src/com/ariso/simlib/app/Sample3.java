@@ -46,17 +46,7 @@ public class Sample3 {
 	public void letsgo() {
 		model = new Model(1, 12, 1, new EulerCauchyIntegration());
 		try {
-//			population = (Nodes) model.createModelEntity(ModelEntityType.NODE, POPULATION_KEY);
-//			birthRate = (Variable) model.createModelEntity(ModelEntityType.VARIABLE, BIRTH_RATE_KEY);
-//			births = (Flow) model.createModelEntity(ModelEntityType.FLOW, BIRTHS_KEY);
-//			deaths = (Flow) model.createModelEntity(ModelEntityType.FLOW, DEATHS_KEY);
-//			population.addInputFlows(births);
-//			population.addOutputFlows(deaths);
-//			population.setInitialValue(5000);
-//			population.setChangeRateFunction(() -> births.getCurrentValue() - deaths.getCurrentValue());
-//
-//			deaths.setInitialValue(100);
-//			birthRate.setInitialValue(0.1);
+ 
 			// ==================================================
 			normal = (Nodes) model.createModelEntity(ModelEntityType.NODE, "常人");
 			infected = (Nodes) model.createModelEntity(ModelEntityType.NODE, "潜伏");
@@ -84,51 +74,58 @@ public class Sample3 {
 //				return 0;
 //			}
 //					);
-//			
+//			Since the server is dedicated to running SQL
 			
 			normal.setChangeRateFunction(new ComputeInterface() {
 				@Override
 				public double calculateEntityValue() {
-					double result = newFixed.theValue() * newSelfCure.theValue() - newDead.theValue() - newInfected.theValue();
+					double result = newFixed.theValue() + newSelfCure.theValue() - newDead.theValue() - newInfected.theValue();
 					return result;
 				}
 			});
-			
-			
-			normal.setInitialValue(50000);
-			
-
+								
 			infected.setChangeRateFunction(() -> newInfected.theValue() - newHospital.theValue() - newSelfCure.theValue());
-			infected.setInitialValue(100);
-
-			hospital.setChangeRateFunction(() -> hospital.theValue() + newHospital.theValue() - newFixed.theValue() - newDead.theValue());
+		
+			hospital.setChangeRateFunction(() ->  newHospital.theValue() - newFixed.theValue() - newDead.theValue());
 			hospital.setInitialValue(0);
 
-			died.setChangeRateFunction(() -> died.theValue() + newDead.theValue());
+			died.setChangeRateFunction(() ->   newDead.theValue());
 			died.setInitialValue(0);
 			// ================================================== Covert/rate
 			// --正常人 转 新阳 = 假设 1个潜伏会导致2000个潜伏 每天20天 1：1 (target, inputs ...)
 			model.createConverter(newInfected, infected,normal).setFunction(() -> {
-				double newInfectedValue = (infected.theValue()/ model.getCurrentTime()) * 1.0;
+				double avglen = 12;
+				if (model.getCurrentTime()<avglen)
+				{
+					avglen = model.getCurrentTime();
+				}
+				double newInfectedValue = (infected.theValue() / avglen) * 1.15;
 				
 				if (newInfectedValue> normal.theValue())
 				{
 					newInfectedValue = normal.theValue();
 				}
-				
+				 
 				return newInfectedValue;
 			});
 			// --潜伏 转 自愈 = 假设 100个潜伏 85个自愈 0.85 每天10天
-			model.createConverter(newSelfCure, infected).setFunction(() -> infected.theValue() * ( (85 / 100.0) / 10.0));
 			// --潜伏 转 重症 = 假设 100个潜伏 85个自愈 0.15 每天10天
+			model.createConverter(newSelfCure, infected).setFunction(() -> infected.theValue() * ( (85 / 100.0) / 10.0));			
 			model.createConverter(newHospital, infected).setFunction(() -> infected.theValue() * ((15 / 100.0) / 10.0));
+			 
 			// --重症 转 康复 = 假设 100个重症 50个康复 0.5 每天20天
-			model.createConverter(newFixed, hospital).setFunction(() -> hospital.theValue() * ((50 / 100.0) / 20.0));
 			// --重症 转 病危 = 假设 100个重症 50个病危 0.5 每天20天
+			model.createConverter(newFixed, hospital).setFunction(() -> hospital.theValue() * ((50 / 100.0) / 20.0));			
 			model.createConverter(newDead, hospital).setFunction(() -> hospital.theValue() * ((50 / 100.0) / 20.0));
+ 
+			
+			normal.setInitialValue(1000000);
+			infected.setInitialValue(600);
 
+			
+			
 			Simulation simulation = new Simulation(model);
-			model.setFinalTime(20);
+			model.setFinalTime(90);
 			simulation.run();
 
 			model.reportConsole();

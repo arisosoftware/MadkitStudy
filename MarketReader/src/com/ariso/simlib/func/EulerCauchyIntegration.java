@@ -15,7 +15,7 @@ public class EulerCauchyIntegration extends AbstractIntegration {
 	public void integrate() {
 		for (Nodes stock : this.getNodeList()) {
 			double calculatedValue = stock.theValue()
-					+ stock.getChangeRateFunction().calculateEntityValue() * this.getDt();
+					+ stock.getChangeRateFunction().calculateEntityValue()  * this.getDt();
 			stock.setCurrentValue(calculatedValue);
 			stock.setCurrentValueCalculated(true);
 		}
