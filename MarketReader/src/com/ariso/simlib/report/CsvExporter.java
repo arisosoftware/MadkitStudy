@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ariso.simlib.EventHandler;
+import com.ariso.simlib.EventHandlerInterface;
 import com.ariso.simlib.model.Model;
 
 /**
@@ -15,7 +15,7 @@ import com.ariso.simlib.model.Model;
  *
  * @author <a href="mailto:arisosoftware@gmail.com">Ariso software ltd</a>
  */
-public class CsvExporter implements EventHandler {
+public class CsvExporter implements EventHandlerInterface {
 
 	private final String separator;
 	private final String csvFile;

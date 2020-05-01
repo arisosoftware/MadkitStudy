@@ -5,7 +5,7 @@ import java.util.TreeMap;
 
 import com.ariso.simlib.AbstractModelEntity;
 import com.ariso.simlib.ComputeInterface;
-import com.ariso.simlib.SimException;
+import com.ariso.simlib.AppConfig;
 import com.ariso.simlib.func.EulerCauchyIntegration;
 import com.ariso.simlib.model.Converter;
 import com.ariso.simlib.model.Flow;
@@ -23,7 +23,8 @@ public class Sample3 {
 	private Nodes infected;
 	private Nodes hospital;
 	private Nodes died;
-
+	private Nodes totalInfected;
+	
 	private Flow newHospital;
 	private Flow newDead;
 	private Flow newFixed;
@@ -43,16 +44,17 @@ public class Sample3 {
 
 	}
 
-	public void letsgo() {
+	public void letsgo() throws Exception {
 		model = new Model(1, 12, 1, new EulerCauchyIntegration());
-		try {
-
+	 
 			// ==================================================
 			normal = (Nodes) model.createModelEntity(ModelEntityType.NODE, "常人");
-			normal.ifRequiredReport = false;
+			 normal.ifRequiredReport = false;
 			infected = (Nodes) model.createModelEntity(ModelEntityType.NODE, "轻症数");
 			hospital = (Nodes) model.createModelEntity(ModelEntityType.NODE, "住院数");
 			died = (Nodes) model.createModelEntity(ModelEntityType.NODE, "死亡数");
+			
+			totalInfected = (Nodes) model.createModelEntity(ModelEntityType.NODE, "确诊数");
 			// ==================================================
 			newDead = (Flow) model.createModelEntity(ModelEntityType.FLOW, "不治");
 			newFixed = (Flow) model.createModelEntity(ModelEntityType.FLOW, "治愈");
@@ -87,8 +89,21 @@ public class Sample3 {
 				}
 			});
 
-			infected.setChangeRateFunction(() -> newInfected.theValue() - newHospital.theValue() - newSelfCure.theValue());
-
+			infected.setChangeRateFunction(new ComputeInterface() {
+				@Override
+				public double calculateEntityValue() {
+					double result = newInfected.theValue() - newHospital.theValue() - newSelfCure.theValue();
+					
+//					System.out.print(" newInfected: "+newInfected.theValue());
+//					System.out.print(" newHospital: "+newHospital.theValue());
+//					System.out.print(" newSelfCure: "+newSelfCure.theValue());
+//					System.out.print(" result: "+result);
+					return result;
+				}
+			});
+			//(() -> newInfected.theValue() - newHospital.theValue() - newSelfCure.theValue());			
+			
+			totalInfected.setChangeRateFunction(() -> newInfected.theValue() );
 			hospital.setChangeRateFunction(() -> newHospital.theValue() - newFixed.theValue() - newDead.theValue());
 
 			died.setChangeRateFunction(() -> newDead.theValue());
@@ -98,11 +113,12 @@ public class Sample3 {
 			model.createConverter(newInfected, infected, normal).setFunction(() -> {
 
 				double avglen = 15;
-				if (model.getCurrentTime() < avglen) {
-					avglen = model.getCurrentTime();
+				if (model.getCurrentStep() < avglen) {
+					avglen = model.getCurrentStep();
 				}
-				
-				double newInfectedValue = (infected.theValue() / avglen) * 1;
+			//	System.out.println("infected: "+infected.theValue());
+				double newInfectedValue = infected.theValue() * 0.29; 
+						//(infected.theValue() / avglen) * 1;
 
 				if (newInfectedValue > normal.theValue()) {
 					newInfectedValue = normal.theValue();
@@ -110,16 +126,23 @@ public class Sample3 {
 
 				return newInfectedValue;
 			});
+			
+			
+			
+			
 			// --潜伏 转 自愈 = 假设 100个潜伏 85个自愈 0.85 每天10天
 			// --潜伏 转 重症 = 假设 100个潜伏 85个自愈 0.15 每天10天
-			model.createConverter(newSelfCure, infected).setFunction(() -> {
+			model.createConverter(newSelfCure, infected, hospital).setFunction(() -> {
 				// infected.theValue() * ( (85 / 100.0) / 10.0));
 				double avglen = 7;
-				if (model.getCurrentTime() < avglen) {
-					avglen = model.getCurrentTime();
+				if (model.getCurrentStep() < avglen) {
+					avglen = model.getCurrentStep();
 				}
-				double newInfectedValue = (infected.theValue() / avglen) * 0.9;
-
+				//double newInfectedValue = (infected.theValue() / avglen) * 0.9;
+				
+				double newInfectedValue = ( infected.theValue() + newSelfCure.theValue() ) *0.22;
+						//Math.pow(infected.theValue(), 1.02)*0.22; 
+				
 				if (newInfectedValue > normal.theValue()) {
 					newInfectedValue = normal.theValue();
 				}
@@ -133,23 +156,46 @@ public class Sample3 {
 			model.createConverter(newHospital, infected).setFunction(() -> {
 				// infected.theValue() * ( (85 / 100.0) / 10.0));
 				double avglen = 12;
-				if (model.getCurrentTime() < avglen) {
-					avglen = model.getCurrentTime();
+				if (model.getCurrentStep() < avglen) {
+					avglen = model.getCurrentStep();
 				}
-				double newInfectedValue = (infected.theValue() / avglen) * 0.15;
+				double newInfectedValue = (infected.theValue() / avglen) * 0.3;
 
 				if (newInfectedValue > normal.theValue()) {
 					newInfectedValue = normal.theValue();
 				}
 
 				return newInfectedValue;
-			});
+			}); 
 			
 			// --重症 转 康复 = 假设 100个重症 50个康复 0.5 每天20天
 			// --重症 转 病危 = 假设 100个重症 50个病危 0.5 每天20天
-			model.createConverter(newFixed, hospital).setFunction(() -> hospital.theValue() * ((150 / 100.0) / 20.0));
-			model.createConverter(newDead, hospital).setFunction(() -> hospital.theValue() * ((89.1 / 100.0) / 20.0));
+			model.createConverter(newFixed, hospital).setFunction(() -> hospital.theValue() * ((190 / 100.0) / 20.0));
+			model.createConverter(newDead, hospital).setFunction(() -> hospital.theValue() * ((70.1 / 100.0) / 20.0));
 
+			// ================================================== Covert/rate
+			Converter infectRateConvert = model.createConverter(newInfected, infectRate, infected, normal);
+			infectRateConvert.setFunction(new ComputeInterface() {
+				@Override
+				public double calculateEntityValue() {
+				//	double result = birthRate.theValue() * population.theValue();
+					
+					
+					
+					
+					return 1;					
+				}
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			normal.setInitialValue(1000000);
 
 			// 14天前数据： 8961 - 4194 - 423 - 807 =3537
@@ -165,12 +211,12 @@ public class Sample3 {
 			// 828 - 807 = 21 ，重症
 			// 4194-4875 681 自愈，
 
-			newDead.setInitialValue(10); // "病危");
+			newDead.setInitialValue(91); // "病危");
 			newFixed.setInitialValue(550); // "治愈");
-			newHospital.setInitialValue(19); // "重症");
+			newHospital.setInitialValue(807); // "重症");
 			newInfected.setInitialValue(560); // "新阳");
 			newSelfCure.setInitialValue(128); // "自愈");
-
+			totalInfected.setInitialValue(8961);
 			// 今天数据
 //			infected.setInitialValue(3901);
 //			hospital.setInitialValue(999);
@@ -189,14 +235,12 @@ Hospitalized 999
 			 */
 			
 			Simulation simulation = new Simulation(model);
-			model.setFinalTime(15);
+			model.setTotalStep(20);
 			simulation.run();
 
 			// model.reportConsole();
 
-		} catch (SimException e) {
-			e.printStackTrace();
-		}
+		 
 	}
 //	
 //   static void Define001(){

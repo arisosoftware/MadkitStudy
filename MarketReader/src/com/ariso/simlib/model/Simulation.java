@@ -2,7 +2,7 @@ package com.ariso.simlib.model;
 
 import java.util.ArrayList;
 
-import com.ariso.simlib.EventHandler;
+import com.ariso.simlib.EventHandlerInterface;
 
 /**
  * This class represents a system dynamics simulation and controls the
@@ -13,7 +13,7 @@ import com.ariso.simlib.EventHandler;
 public class Simulation {
 
 	private Model model;
-	private ArrayList<EventHandler> eventHandlerList;
+	private ArrayList<EventHandlerInterface> eventHandlerList;
 
 	/**
 	 * Constructor.
@@ -55,7 +55,7 @@ public class Simulation {
 	 * Prepare all initial model values for running the simulation.
 	 */
 	private void prepareInitialValues() {
-		this.model.setCurrentTime(this.model.getInitialTime());
+		this.model.setCurrentStep(this.model.getInitialTime());
 		this.model.getModelEntities().forEach((k, v) -> {
 			v.setCurrentValue(v.getInitialValue());
 			v.setCurrentValueCalculated(false);
@@ -71,7 +71,7 @@ public class Simulation {
 	 */
 	private void prepareValuesForFirstTimestep() {
 		this.model.getModelEntities().forEach((k, v) -> {
-			if (v instanceof Nodes && this.model.getCurrentTime() == this.model.getInitialTime()) {
+			if (v instanceof Nodes && this.model.getCurrentStep() == this.model.getInitialTime()) {
 				v.setCurrentValueCalculated(true);
 			}
 		});
@@ -92,7 +92,7 @@ public class Simulation {
 	 * Method to update the current time by adding one time step.
 	 */
 	private void updateCurrentTime() {
-		this.model.setCurrentTime(this.model.getCurrentTime() + this.model.getTimeSteps());
+		this.model.setCurrentStep(this.model.getCurrentStep() + this.model.getTimeSteps());
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class Simulation {
 	 * @return <tt>true</tt> only if the final time has been reached.
 	 */
 	public boolean finalTimeReached() {
-		return this.model.getCurrentTime() < this.model.getFinalTime();
+		return this.model.getCurrentStep() < this.model.getTotalStep();
 	}
 
 	/**
@@ -119,18 +119,18 @@ public class Simulation {
 	/**
 	 * Adds an listener that handles simulation events.
 	 *
-	 * @param listener {@link EventHandler}
+	 * @param listener {@link EventHandlerInterface}
 	 */
-	public void addSimulationEventListener(EventHandler listener) {
+	public void addSimulationEventListener(EventHandlerInterface listener) {
 		this.eventHandlerList.add(listener);
 	}
 
 	/**
-	 * Removes a {@link EventHandler}.
+	 * Removes a {@link EventHandlerInterface}.
 	 *
-	 * @param listener {@link EventHandler}
+	 * @param listener {@link EventHandlerInterface}
 	 */
-	public void removeSimulationEventListener(EventHandler listener) {
+	public void removeSimulationEventListener(EventHandlerInterface listener) {
 		this.eventHandlerList.remove(listener);
 	}
 

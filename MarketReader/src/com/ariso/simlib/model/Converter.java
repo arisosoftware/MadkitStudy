@@ -5,13 +5,20 @@ import java.util.Collections;
 
 import com.ariso.simlib.AbstractModelEntity;
 import com.ariso.simlib.ComputeInterface;
-import com.ariso.simlib.SimException;
+import com.ariso.simlib.AppConfig;
 
 /**
  * This class represents a converter that calculates the current value of a
  * target {@link AbstractModelEntity} in a time step. It represents the
  * cause-effect relationships between {@link AbstractModelEntity} instances. The
  * calculation depends on the function that has been delivered to the converter.
+ * 
+ * 转化器， 
+ *  *此类表示计算a的当前值的转换器
+  *在一个时间步中定位{@link AbstractModelEntity}。 它代表
+  * {@link AbstractModelEntity}实例之间的因果关系。 的
+  *计算取决于已交付给转换器的功能。
+
  *
  * @author <a href="mailto:arisosoftware@gmail.com">Ariso software ltd</a>
  */
@@ -79,9 +86,9 @@ public class Converter {
 	 * Method to add multiple input model entities.
 	 *
 	 * @param inputs model entities.
-	 * @throws SimException model exception.
+	 * @throws AppConfig model exception.
 	 */
-	protected void addInputs(AbstractModelEntity... inputs) throws SimException {
+	protected void addInputs(AbstractModelEntity... inputs) throws Exception {
 		for (AbstractModelEntity f : inputs) {
 			this.addInput(f);
 		}
@@ -91,11 +98,11 @@ public class Converter {
 	 * Method to add an input for the target entity.
 	 *
 	 * @param input input entity.
-	 * @throws SimException model exception.
+	 * @throws AppConfig model exception.
 	 */
-	private void addInput(AbstractModelEntity input) throws SimException {
+	private void addInput(AbstractModelEntity input) throws Exception {
 		if (inputAlreadyAdded(input)) {
-			throw new SimException(SimException.DUPLICATE_VARIABLE_EXCEPTION);
+			throw new Exception (AppConfig.DUPLICATE_VARIABLE_EXCEPTION);
 		} else {
 			this.inputs.add(input);
 		}

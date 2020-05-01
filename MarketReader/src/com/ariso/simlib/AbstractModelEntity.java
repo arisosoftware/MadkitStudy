@@ -16,6 +16,9 @@ public abstract class AbstractModelEntity {
 	private boolean currentValueCalculated;
 	private Converter converter;
 
+	
+	public double[] valueHistory = null;
+	
 	/**
 	 * Constructor.
 	 *
@@ -24,6 +27,7 @@ public abstract class AbstractModelEntity {
 	protected AbstractModelEntity(String name) {
 		super();
 		this.name = name;
+		this.valueHistory = new double[10000];
 	}
 
 	/**

@@ -18,14 +18,6 @@ public class Variable extends AbstractModelEntity {
 	public Variable(String name) {
 		super(name);
 	}
-
-//	@Override
-//	public Object clone() throws CloneNotSupportedException {
-//		Variable variable = new Variable(this.getName());
-//		variable.setCurrentValue(this.getCurrentValue());
-//		variable.setInitialValue(getInitialValue());
-//		variable.setPreviousValue(this.getPreviousValue());
-//		return variable;
-//	}
+ 
 
 }

@@ -8,7 +8,7 @@ import com.ariso.simlib.model.Simulation;
  *
  * @author <a href="mailto:arisosoftware@gmail.com">Ariso software ltd</a>
  */
-public interface EventHandler {
+public interface EventHandlerInterface {
 
 	/**
 	 * This is the first activated behavior in the life cycle, put init code in here
