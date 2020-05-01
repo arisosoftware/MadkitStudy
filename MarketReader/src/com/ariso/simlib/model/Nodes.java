@@ -18,7 +18,8 @@ public class Nodes extends AbstractModelEntity {
 	private ArrayList<Flow> inputFlows;
 	private ArrayList<Flow> outputFlows;
 	private ComputeInterface changeRateFunction;
-
+	public boolean ifRequiredReport = true;
+	
 	/**
 	 * Constructor.
 	 *

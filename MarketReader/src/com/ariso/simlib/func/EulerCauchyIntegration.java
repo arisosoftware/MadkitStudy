@@ -4,7 +4,6 @@ import com.ariso.simlib.AbstractIntegration;
 import com.ariso.simlib.model.Nodes;
 
 /**
- * This class extends the {@link AbstractIntegration} interface and represents
  * the Euler-Cauchy method.
  *
  * @author <a href="mailto:arisosoftware@gmail.com">Ariso software ltd</a>

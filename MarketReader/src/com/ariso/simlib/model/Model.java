@@ -260,7 +260,10 @@ public class Model {
 					
 			if (modelEntity instanceof Nodes)
 			{
-				sb.append("\t" + modelEntity.getName() + ":" + new DecimalFormat("#####.000").format(modelEntity.theValue()));	
+				if (((Nodes) modelEntity).ifRequiredReport)
+				{
+					sb.append("\t" + modelEntity.getName() + ":" + new DecimalFormat("#####.000").format(modelEntity.theValue()));	
+				}					
 			}
 			else
 			{
@@ -269,7 +272,7 @@ public class Model {
 			
 			// sb.append("\n");
 		});
-		return sb.toString()+"\t\t\t"+sb2.toString();
+		return sb.toString()+"\t"+sb2.toString();
 		// return "Model [modelEntities=" + this.modelEntities + "]";
 	}
 
