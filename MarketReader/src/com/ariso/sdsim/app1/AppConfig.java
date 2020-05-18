@@ -18,16 +18,20 @@ public class AppConfig  {
 	//每只羊吃多少草 5
 	public static double eatGrassPerSheep = 10;
 	//每個草能有多少新草
-	public static double newGrassRate = 10 ;	
+	public static double newGrassRate = 2 ;	
 	//羊繁殖率 
-	public static double newSheepRate = 2;
+	public static double newSheepRate = 1.5;
 	//狼繁殖率
 	public static double newWolfRate = 1;
 	
 	//最多有多少草
 	public static double maxGrassLimit = 1000000;
-	 
-	public static double minSheep = 30;
-	public static double minGrass = 3000;
+	public static double maxSheepLimit = 1000000;
+	public static double maxWolfLimit = 1000;
+	
+	public static double minSheep = 500;
+	public static double minGrass = 6000;
 	public static double minWolf = 2;
+	
+	
 }

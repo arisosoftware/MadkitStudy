@@ -114,7 +114,22 @@ public class Model {
 			});
 			sb.append(")\t");
 		});
-
+//
+//		this.entityMap.values().forEach((entity) -> {
+//			sb.append(entity.label);
+//			sb.append(" ");
+//			sb.append(entity.GetValue());
+//			sb.append("(");
+//			entity.flow.forEach((flowrow) -> {
+//				sb.append(flowrow.label);
+//				sb.append(" ");
+//				sb.append(flowrow.value).append(" ");
+//				;
+//			});
+//			sb.append(")\t");
+//		});
+		
+		
 		System.out.println(sb.toString());
 	}
 
@@ -123,6 +138,7 @@ public class Model {
 		// step 1, calc all data flow values
 		this.flowMap.values().forEach((flowrow) -> {
 			flowrow.compute();
+			
 		});
 
 		// step 2, calc all entity
