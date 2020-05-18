@@ -35,13 +35,13 @@ public class Sample001 {
 		 sheep.maxValue = AppConfig.maxGrassLimit;
 		 sheep.minValue = AppConfig.minSheep;
 		 wolf.minValue = AppConfig.minWolf;
-		 
-		 grass.addStepValue(10000);
-		 sheep.addStepValue(10);
-		 wolf.addStepValue(2);
+		 wolf.maxValue = AppConfig.maxWolfLimit;
+		 grass.addStepValue(AppConfig.initGrass);
+		 sheep.addStepValue(AppConfig.initSheep);
+		 wolf.addStepValue(AppConfig.initWolf);
 		 
 		 model.currentStep=0;
-		 model.totalSteps = 15;
+		 model.totalSteps = 60;
 		 model.run();
 		 
 		 

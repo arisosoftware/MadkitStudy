@@ -98,7 +98,7 @@ public class Model {
 
 	public void GetReport() {
 		StringBuilder sb = new StringBuilder();
-	
+
 		if (this.currentStep == 0) {
 			sb.append("<tr><th>step</th>");
 //			sb.append("Step\t");
@@ -122,23 +122,23 @@ public class Model {
 				sb.append(flowrow.label);
 
 			});
-			sb.append("</tr>");	sb.append("\n");
-			
+			sb.append("</tr>");
+			sb.append("\n");
+
 		}
 		sb.append("<tr>");
-		sb.append("<td style=\"text-align:right\">").append(this.currentStep).append("</td>");
+		sb.append("<td>").append(this.currentStep).append("</td>");
 
 		this.entityMap.values().forEach((entity) -> {
-		 
-			sb.append("<td style=\"text-align:right\">").append(entity.GetValue()).append("</td>");
-		 
+			sb.append("<td>").append(String.format("%5.2f", entity.GetValue())).append("</td>");
+
 		});
 		sb.append("<td>").append("</td>");
-		this.flowMap.values().forEach((flowrow) -> {		 
-			sb.append("<td style=\"text-align:right\">").append(flowrow.value).append("</td>");
+		this.flowMap.values().forEach((flowrow) -> {
+			sb.append("<td>").append(String.format("%5.2f",flowrow.value)).append("</td>");
 		});
 		sb.append("</tr>\n");
-	
+
 		System.out.print(sb.toString());
 	}
 
@@ -160,12 +160,23 @@ public class Model {
 	}
 
 	public void run() {
-		System.out.println("<table border=\"1\">");
+		System.out.println("<head>\n" + 
+				"<style>\n" + 
+				"table, th, td {\n" + 
+				"  border: 1px solid black;\n" + 
+				"}table {\n" + 
+				"  border-collapse: collapse;\n" + 
+				"}\n" + 
+				"th, td {\n" + 
+				" padding: 1px 15px;\n" + 
+				"  text-align: right;\n" + 
+				"}</style>\n" + 
+				"</head>"
+				+ "\n<table>");
 		for (int i = 0; i < this.totalSteps; i++) {
-			 
 			go_step();
 		}
-		System.out.println("</table>");
+		System.out.println("\n</table>");
 	}
 
 	public void EntityAddFlow(String entityName, String flowName) {

@@ -22,16 +22,23 @@ public class AppConfig  {
 	//羊繁殖率 
 	public static double newSheepRate = 1.5;
 	//狼繁殖率
-	public static double newWolfRate = 1;
+	public static double newWolfRate = 0.2;
 	
 	//最多有多少草
 	public static double maxGrassLimit = 1000000;
 	public static double maxSheepLimit = 1000000;
-	public static double maxWolfLimit = 1000;
+	public static double maxWolfLimit = 5000;
 	
-	public static double minSheep = 500;
+	public static double minSheep = 20;
 	public static double minGrass = 6000;
 	public static double minWolf = 2;
+	
+
+	public static double initSheep = 20;
+	public static double initGrass = 6000;
+	public static double initWolf = 2;
+	
+	
 	
 	
 }

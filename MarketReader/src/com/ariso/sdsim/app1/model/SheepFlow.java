@@ -32,7 +32,7 @@ public class SheepFlow extends AbstractFlow {
 	 	
 		if (noFoodSheep < 0)
 		{		
-			newSheep = Math.round(sheep.GetValue() * AppConfig.newSheepRate);
+			newSheep = sheep.GetValue() * AppConfig.newSheepRate;
 			noFoodSheep = 0;		
 		}
 			 

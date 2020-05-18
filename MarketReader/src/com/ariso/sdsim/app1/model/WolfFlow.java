@@ -28,7 +28,7 @@ public class WolfFlow extends AbstractFlow {
 		if (noFoodWolf < 0)
 		{
 			noFoodWolf =0;
-			newWolf = Math.round(wolf.GetValue() * AppConfig.newWolfRate);
+			newWolf =wolf.GetValue() * AppConfig.newWolfRate;
 		}
 	 
 		this.value = newWolf - noFoodWolf;
