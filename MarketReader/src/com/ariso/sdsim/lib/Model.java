@@ -98,39 +98,48 @@ public class Model {
 
 	public void GetReport() {
 		StringBuilder sb = new StringBuilder();
+	
+		if (this.currentStep == 0) {
+			sb.append("<tr><th>step</th>");
+//			sb.append("Step\t");
+//			this.entityMap.values().forEach((entity) -> {
+//				sb.append(entity.label);
+//				sb.append("\t\t");
+//			});
+//			sb.append("\t");
+//			this.flowMap.values().forEach((flowrow) -> {
+//				sb.append(flowrow.label);
+//				sb.append("\t");				
+//			});
+//			sb.append("\n");
 
-		sb.append("Step:\t").append(this.currentStep).append(" ");
+			this.entityMap.values().forEach((entity) -> {
+				sb.append("<th>").append(entity.label).append("</th>");
+			});
+			sb.append("<th></th>");
+			this.flowMap.values().forEach((flowrow) -> {
+				sb.append("<th>").append(flowrow.label).append("</th>");
+				sb.append(flowrow.label);
+
+			});
+			sb.append("</tr>");	sb.append("\n");
+			
+		}
+		sb.append("<tr>");
+		sb.append("<td style=\"text-align:right\">").append(this.currentStep).append("</td>");
 
 		this.entityMap.values().forEach((entity) -> {
-			sb.append(entity.label);
-			sb.append(" ");
-			sb.append(entity.GetValue());
-			sb.append("(");
-			entity.flow.forEach((flowrow) -> {
-				sb.append(flowrow.label);
-				sb.append(" ");
-				sb.append(flowrow.value).append(" ");
-				;
-			});
-			sb.append(")\t");
+		 
+			sb.append("<td style=\"text-align:right\">").append(entity.GetValue()).append("</td>");
+		 
 		});
-//
-//		this.entityMap.values().forEach((entity) -> {
-//			sb.append(entity.label);
-//			sb.append(" ");
-//			sb.append(entity.GetValue());
-//			sb.append("(");
-//			entity.flow.forEach((flowrow) -> {
-//				sb.append(flowrow.label);
-//				sb.append(" ");
-//				sb.append(flowrow.value).append(" ");
-//				;
-//			});
-//			sb.append(")\t");
-//		});
-		
-		
-		System.out.println(sb.toString());
+		sb.append("<td>").append("</td>");
+		this.flowMap.values().forEach((flowrow) -> {		 
+			sb.append("<td style=\"text-align:right\">").append(flowrow.value).append("</td>");
+		});
+		sb.append("</tr>\n");
+	
+		System.out.print(sb.toString());
 	}
 
 	public void go_step() {
@@ -138,7 +147,7 @@ public class Model {
 		// step 1, calc all data flow values
 		this.flowMap.values().forEach((flowrow) -> {
 			flowrow.compute();
-			
+
 		});
 
 		// step 2, calc all entity
@@ -151,17 +160,19 @@ public class Model {
 	}
 
 	public void run() {
+		System.out.println("<table border=\"1\">");
 		for (int i = 0; i < this.totalSteps; i++) {
+			 
 			go_step();
 		}
-
+		System.out.println("</table>");
 	}
 
 	public void EntityAddFlow(String entityName, String flowName) {
 		Entity entity = this.getEntity(entityName);
 		AbstractFlow flow = this.getFlow(flowName);
 		entity.flow.add(flow);
-		
+
 	}
 
 //	public void EntityAddFlow(Entity entity, AbstractFlow flow) {
