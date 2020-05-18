@@ -18,6 +18,7 @@ public abstract class AbstractModelEntity {
 
 	
 	public double[] valueHistory = null;
+	public int lastValuePoint =0;
 	
 	/**
 	 * Constructor.

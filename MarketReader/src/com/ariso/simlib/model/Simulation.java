@@ -2,7 +2,7 @@ package com.ariso.simlib.model;
 
 import java.util.ArrayList;
 
-import com.ariso.simlib.EventHandlerInterface;
+import com.ariso.simlib.OnNextInterface;
 
 /**
  * This class represents a system dynamics simulation and controls the
@@ -13,7 +13,7 @@ import com.ariso.simlib.EventHandlerInterface;
 public class Simulation {
 
 	private Model model;
-	private ArrayList<EventHandlerInterface> eventHandlerList;
+	private ArrayList<OnNextInterface> eventHandlerList;
 
 	/**
 	 * Constructor.
@@ -119,18 +119,18 @@ public class Simulation {
 	/**
 	 * Adds an listener that handles simulation events.
 	 *
-	 * @param listener {@link EventHandlerInterface}
+	 * @param listener {@link OnNextInterface}
 	 */
-	public void addSimulationEventListener(EventHandlerInterface listener) {
+	public void addSimulationEventListener(OnNextInterface listener) {
 		this.eventHandlerList.add(listener);
 	}
 
 	/**
-	 * Removes a {@link EventHandlerInterface}.
+	 * Removes a {@link OnNextInterface}.
 	 *
-	 * @param listener {@link EventHandlerInterface}
+	 * @param listener {@link OnNextInterface}
 	 */
-	public void removeSimulationEventListener(EventHandlerInterface listener) {
+	public void removeSimulationEventListener(OnNextInterface listener) {
 		this.eventHandlerList.remove(listener);
 	}
 
@@ -140,7 +140,7 @@ public class Simulation {
 	 * @param model {@link Model} for the simulation
 	 */
 	private void fireSimulationInitializedEvent(Model model) {
-		this.eventHandlerList.forEach(listener -> listener.open(model));
+	 
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class Simulation {
 	 * @param model {@link Model} for the simulation
 	 */
 	private void fireTimeStepCalculatedEvent(Model model) {
-		this.eventHandlerList.forEach(listener -> listener.execStep(model));
+		this.eventHandlerList.forEach(listener -> listener.oneStep(model));
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class Simulation {
 	 * @param model {@link Model} for the simulation
 	 */
 	private void fireSimulationFinishedEvent(Model model) {
-		this.eventHandlerList.forEach(listener -> listener.close(model));
+	 
 	}
 
 }
