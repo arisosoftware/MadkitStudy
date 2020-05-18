@@ -28,11 +28,11 @@ public class SheepFlow extends AbstractFlow {
 		
 		double eatByWolf = wolf.GetValue() * AppConfig.sheepEatByWolf;
 		
-		double noFoodSheep = sheep.GetValue() - maxSheepLimitByGrass ;
+		double noFoodSheep =   sheep.GetValue() - maxSheepLimitByGrass ;
 	 	
 		if (noFoodSheep < 0)
 		{		
-			newSheep = Math.round(grass.GetValue() * AppConfig.newSheepRate);
+			newSheep = Math.round(sheep.GetValue() * AppConfig.newSheepRate);
 			noFoodSheep = 0;		
 		}
 			 

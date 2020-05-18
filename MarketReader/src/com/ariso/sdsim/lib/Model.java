@@ -28,10 +28,13 @@ public class Model {
 		this.entityMap = new HashMap<String, Entity>();
 		this.flowMap = new HashMap<String, AbstractFlow>();
 	}
-	
-	public Entity getEntity(String entityName)
-	{
+
+	public Entity getEntity(String entityName) {
 		return entityMap.get(entityName);
+	}
+
+	public AbstractFlow getFlow(String flowName) {
+		return flowMap.get(flowName);
 	}
 
 	public void addEntity(Entity entity) throws Exception {
@@ -50,13 +53,11 @@ public class Model {
 			throw new Exception(AppConfig.DUPLICATE_FLOW_EXCEPTION);
 		}
 	}
-	
-	public void addEnityFlow(String EntityName, String FlowName)
-	{
-		entityMap.get(EntityName).flow.add(this.flowMap.get(FlowName) );
+
+	public void addEnityFlow(String EntityName, String FlowName) {
+		entityMap.get(EntityName).flow.add(this.flowMap.get(FlowName));
 	}
-	
-	
+
 //	public void linkDataFlow(String source, String target, String flow) throws Exception {
 //		Entity sourceEntity = this.entityMap.get(source);
 //		Entity targetEntity = this.entityMap.get(target);
@@ -94,52 +95,61 @@ public class Model {
 			System.out.println(modelEntity.label + ":" + new DecimalFormat("#.######").format(modelEntity.GetValue()));
 		});
 	}
-	
-	public void GetReport()
-	{
-		StringBuilder sb = new StringBuilder();
-	
-		sb.append("Step:\t").append(this.currentStep).append(" " );
 
-		this.entityMap.values().forEach( (entity) -> {
+	public void GetReport() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("Step:\t").append(this.currentStep).append(" ");
+
+		this.entityMap.values().forEach((entity) -> {
 			sb.append(entity.label);
 			sb.append(" ");
 			sb.append(entity.GetValue());
 			sb.append("(");
-			entity.flow.forEach( (flowrow)-> {
+			entity.flow.forEach((flowrow) -> {
 				sb.append(flowrow.label);
 				sb.append(" ");
-				sb.append(flowrow.value).append(" ");;
+				sb.append(flowrow.value).append(" ");
+				;
 			});
 			sb.append(")\t");
-		}); 
-		
+		});
+
 		System.out.println(sb.toString());
 	}
-	
+
 	public void go_step() {
- 
+
 		// step 1, calc all data flow values
-		this.flowMap.values().forEach( (flowrow)-> {
+		this.flowMap.values().forEach((flowrow) -> {
 			flowrow.compute();
 		});
-		
-		// step 2, calc all entity 
-		this.entityMap.values().forEach( (entity) -> {
+
+		// step 2, calc all entity
+		this.entityMap.values().forEach((entity) -> {
 			entity.applyFlowValues();
-		}); 
-		
+		});
+
 		GetReport();
-		this.currentStep ++;
+		this.currentStep++;
 	}
-	
-	public void run()
-	{
-		for (int i=0;i<this.totalSteps;i++)
-		{			
+
+	public void run() {
+		for (int i = 0; i < this.totalSteps; i++) {
 			go_step();
 		}
+
+	}
+
+	public void EntityAddFlow(String entityName, String flowName) {
+		Entity entity = this.getEntity(entityName);
+		AbstractFlow flow = this.getFlow(flowName);
+		entity.flow.add(flow);
 		
 	}
+
+//	public void EntityAddFlow(Entity entity, AbstractFlow flow) {
+//		 
+//	}
 
 }

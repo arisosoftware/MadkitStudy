@@ -10,24 +10,36 @@ public class Sample001 {
 
 	public static void main(String[] args) throws Exception {
 		 Model model = new Model();
-		 Entity grass = new Entity(10, AppConfig.Grass);
-		 grass.flow.add(new GrassFlow());		 
-		 model.addEntity(grass);
-		 
-		 Entity sheep = new Entity(10, AppConfig.Sheep);
-		 sheep.flow.add(new SheepFlow());		 
-		 model.addEntity(sheep);
-		 
-		 Entity wolf = new Entity(10, AppConfig.Wolf);
-		 wolf.flow.add(new WolfFlow());		 
+		 Entity grass = new Entity(10, AppConfig.Grass);	 
+		 model.addEntity(grass); 
+		 Entity sheep = new Entity(10, AppConfig.Sheep);	 
+		 model.addEntity(sheep);		 
+		 Entity wolf = new Entity(10, AppConfig.Wolf);			 
 		 model.addEntity(wolf);
 		  
-		 grass.addStepValue(100);
+		 GrassFlow grassFlow = new GrassFlow();
+		 model.addFlow(grassFlow);
+		 SheepFlow sheepFlow = new SheepFlow();
+		 model.addFlow(sheepFlow);
+		 WolfFlow wolfFlow = new WolfFlow();
+		 model.addFlow(wolfFlow);
+
+		 model.EntityAddFlow(AppConfig.Wolf, wolfFlow.label);
+		 model.EntityAddFlow(AppConfig.Grass, grassFlow.label);
+		 model.EntityAddFlow(AppConfig.Sheep, sheepFlow.label);
+
+		 
+		 grass.maxValue = AppConfig.maxGrassLimit;
+		 grass.minValue = AppConfig.minGrass;
+		 sheep.minValue = AppConfig.minSheep;
+		 wolf.minValue = AppConfig.minWolf;
+		 
+		 grass.addStepValue(10000);
 		 sheep.addStepValue(10);
 		 wolf.addStepValue(2);
 		 
 		 model.currentStep=0;
-		 model.totalSteps = 50;
+		 model.totalSteps = 51;
 		 model.run();
 		 
 		 

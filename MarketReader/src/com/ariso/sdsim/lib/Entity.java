@@ -39,13 +39,9 @@ public  class Entity {
 	 
 		for(int i=0;i<this.flow.size();i++)
 		{
-			AbstractFlow flow = this.flow.get(i);
-			
-			delta = delta + flow.value;
-			
-		//	System.out.println(flow.label + " " + delta);
+			AbstractFlow flow = this.flow.get(i);			
+			delta = delta + flow.value;		 
 		}
-		
 		 
 		double value = this.GetValue() + delta;
 		

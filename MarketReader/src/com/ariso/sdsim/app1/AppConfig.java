@@ -25,7 +25,7 @@ public class AppConfig  {
 	public static double newWolfRate = 1;
 	
 	//最多有多少草
-	public static double maxGrassLimit = 100000;
+	public static double maxGrassLimit = 1000000;
 	 
 	public static double minSheep = 30;
 	public static double minGrass = 3000;
