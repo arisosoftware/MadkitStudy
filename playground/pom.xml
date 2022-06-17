@@ -18,7 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jmh.version>1.7.1</jmh.version>
 		<netty.version>4.1.42.Final</netty.version>
-		<fastjson.version>1.2.25</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 
 		<vertx.version>3.5.1</vertx.version>
 		<javac.target>1.8</javac.target>
